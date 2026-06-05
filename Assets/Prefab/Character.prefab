@@ -133,8 +133,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ff01b0c5f70379348a96142d9bfdd7bd, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -206,13 +206,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134400130483536704}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0, g: 1, b: 0.2, a: 1}
-  m_EffectDistance: {x: 3, y: -3}
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
   m_UseGraphicAlpha: 1
 --- !u!114 &6519310560539066254
 MonoBehaviour:
@@ -226,8 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f210dde8177e1d445825fbe616d67cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHoverBorder
-  hoverColor: {r: 0, g: 1, b: 0.2, a: 1}
-  borderThickness: {x: 3, y: -3}
+  hoverColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  borderThickness: {x: 1, y: -1}
 --- !u!114 &718346107592471304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,8 +280,8 @@ RectTransform:
   m_GameObject: {fileID: 291644068591936336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.86, y: 0.86, z: 0.86}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2797797840972255356}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -664,8 +664,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ff01b0c5f70379348a96142d9bfdd7bd, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -742,8 +742,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 5.74, y: 7.52}
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
   m_UseGraphicAlpha: 1
 --- !u!114 &5869140879796714343
 MonoBehaviour:
@@ -757,8 +757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f210dde8177e1d445825fbe616d67cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHoverBorder
-  hoverColor: {r: 0, g: 1, b: 0.2, a: 1}
-  borderThickness: {x: 3, y: -3}
+  hoverColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  borderThickness: {x: 1, y: -1}
 --- !u!114 &3363729377856252187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,8 +1252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f210dde8177e1d445825fbe616d67cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHoverBorder
-  hoverColor: {r: 0.31278715, g: 0.22387859, b: 0.3679245, a: 0.39215687}
-  borderThickness: {x: 3, y: -3}
+  hoverColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  borderThickness: {x: 1, y: -1}
 --- !u!1 &1089512117713395547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,8 +1325,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ff01b0c5f70379348a96142d9bfdd7bd, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1403,8 +1403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0, g: 1, b: 0.2, a: 1}
-  m_EffectDistance: {x: 3, y: -3}
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
   m_UseGraphicAlpha: 1
 --- !u!114 &5182326517833418270
 MonoBehaviour:
@@ -1418,8 +1418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f210dde8177e1d445825fbe616d67cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHoverBorder
-  hoverColor: {r: 0, g: 1, b: 0.2, a: 1}
-  borderThickness: {x: 3, y: -3}
+  hoverColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  borderThickness: {x: 1, y: -1}
 --- !u!114 &5549670084532851996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3743,8 +3743,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f210dde8177e1d445825fbe616d67cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHoverBorder
-  hoverColor: {r: 0.31278715, g: 0.22387859, b: 0.3679245, a: 0.39215687}
-  borderThickness: {x: 3, y: -3}
+  hoverColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  borderThickness: {x: 1, y: -1}
 --- !u!1 &3239842841168794541
 GameObject:
   m_ObjectHideFlags: 0
@@ -5835,14 +5835,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4311143, g: 0.503769, b: 0.5283019, a: 1}
+  m_Color: {r: 0.7067165, g: 0.78203154, b: 0.8113208, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ab149ad44fc64c34c986a6c1d251d6c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 694ffcdaab53e0d4faed946c35c19b65, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6153,14 +6153,14 @@ RectTransform:
   m_GameObject: {fileID: 5189153280724734299}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.66, y: 0.66, z: 0.66}
+  m_LocalScale: {x: 0.8, y: 0.6727273, z: 0.90909094}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3108528314033242213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8754849149519200983
@@ -6191,7 +6191,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5899088a8c765a742b0e275d41a2e56e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ef062f43281c6b45b3d4fe621f089b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8100,14 +8100,14 @@ RectTransform:
   m_GameObject: {fileID: 6548898768109934461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.48076925, z: 0.48076925}
+  m_LocalScale: {x: 0.87, y: 0.63075, z: 0.6662852}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5483653989157783694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.3, y: 0}
+  m_AnchoredPosition: {x: 1.3, y: -3.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2316243799655517296
@@ -8138,7 +8138,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 64f1ebe5fa86a0840bbbec1ca533cddb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd452297c5885974f8dd199fc8cd567b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10230,7 +10230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ff01b0c5f70379348a96142d9bfdd7bd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11005,8 +11005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f210dde8177e1d445825fbe616d67cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHoverBorder
-  hoverColor: {r: 0.31278715, g: 0.22387859, b: 0.3679245, a: 0.39215687}
-  borderThickness: {x: 3, y: -3}
+  hoverColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  borderThickness: {x: 1, y: -1}
 --- !u!1001 &6458781995602456838
 PrefabInstance:
   m_ObjectHideFlags: 0
