@@ -3,68 +3,75 @@ using UnityEngine;
 
 public static class EventBus
 {
-	// --- COMBAT & HEALTH EVENTS ---
-	// Payload: (int targetPlayerID, float damageAmount)
-	public static Action<int, float> OnPlayerTakeDamage;
+    // --- COMBAT & HEALTH EVENTS ---
+    // Payload: (int targetPlayerID, float damageAmount)
+    public static Action<int, float> OnPlayerTakeDamage;
 
-	// Payload: (int deadPlayerID)
-	public static Action<int> OnPlayerDied;
+    // Payload: (int deadPlayerID)
+    public static Action<int> OnPlayerDied;
 
-	// --- GAMEPLAY EVENTS (For later!) ---
-	// --- APARTMENT EVENTS ---
-	// Payload: (float currentTemperature)
-	public static Action<float> OnTemperatureChanged;
+    // --- GAMEPLAY EVENTS (For later!) ---
+    // --- APARTMENT EVENTS ---
+    // Payload: (float currentTemperature)
+    public static Action<float> OnTemperatureChanged;
 
-	// Payload: (float moneyAmount)
-	public static Action<float> OnMoneySpent;
+    // Payload: (float moneyAmount)
+    public static Action<float> OnMoneySpent;
 
-	public static System.Action<float> OnMoneyEarned;
+    public static System.Action<float> OnMoneyEarned;
 
-	// Payload: (float noiseLevel)
-	public static Action<float> OnNoiseGenerated;
+    // Payload: (float noiseLevel)
+    public static Action<float> OnNoiseGenerated;
 
-	// --- TIME EVENTS ---
-	// Payload: (int currentHour)
-	public static Action<int> OnTimeTick;
+    // --- TIME EVENTS ---
+    // Payload: (int currentHour)
+    public static Action<int> OnTimeTick;
 
-	public static Action OnDayStarted;
-	public static Action OnNightStarted;
+    public static Action OnDayStarted;
+    public static Action OnNightStarted;
 
-	// Payload: (float exactHour) - e.g., 19.5f means 7:30 PM
-	public static Action<float> OnTimeProgress;
+    // Payload: (float exactHour) - e.g., 19.5f means 7:30 PM
+    public static Action<float> OnTimeProgress;
 
-	// Payload: (float newBalance)
-	public static Action<float> OnBalanceChanged;
+    // --- CALENDAR EVENTS ---
+    // Payload: (int newDay, int currentMonth)
+    public static Action<int, int> OnDayChanged;
 
-	public static System.Action<GigData> OnNewGigAvailable;
+    // Payload: (int newMonth)
+    public static Action<int> OnMonthChanged;
 
-	public static System.Action<GigData> OnGigCompleted;
+    // Payload: (float newBalance)
+    public static Action<float> OnBalanceChanged;
 
-	public static System.Action<int, float> OnPlayerRestoreHunger;
+    public static System.Action<GigData> OnNewGigAvailable;
 
-	public static System.Action<string, string> OnGenericTextNotification;
+    public static System.Action<GigData> OnGigCompleted;
 
-	// Add this with your other Actions in EventBus.cs
-	public static Action<int, string, string> OnPersonalTextNotification;
+    public static System.Action<int, float> OnPlayerRestoreHunger;
 
-	// Triggered when you hit "Accept"
-	public static System.Action<GigData> OnGigAccepted;
+    public static System.Action<string, string> OnGenericTextNotification;
 
-	// Triggered when you successfully finish a minigame step
-	public static System.Action<int> OnTaskCompleted;
+    // Add this with your other Actions in EventBus.cs
+    public static Action<int, string, string> OnPersonalTextNotification;
 
-	// Triggered when you mess up a minigame, deducting money!
-	public static System.Action<float> OnGigMistakeMade;
+    // Triggered when you hit "Accept"
+    public static System.Action<GigData> OnGigAccepted;
 
-	// Payload: (GigData completedGig, float finalPayoutAmount)
-	public static System.Action<GigData, float> OnGigReadyForPickup;
+    // Triggered when you successfully finish a minigame step
+    public static System.Action<int> OnTaskCompleted;
 
-	// THE FIX: Added PlayerController to the payload
-	// Payload: (GigTaskInfo task, GameObject heldItem, GigPropRepair propScript, PlayerController triggeringPlayer)
-	public static System.Action<object, GameObject, GigPropRepair, PlayerController> OnStartMinigame;
+    // Triggered when you mess up a minigame, deducting money!
+    public static System.Action<float> OnGigMistakeMade;
 
-	// THE FIX: Added PlayerController so only the specific player is unlocked
-	// Triggered when a minigame UI closes (win or lose)
-	public static System.Action<PlayerController> OnMinigameEnded;
+    // Payload: (GigData completedGig, float finalPayoutAmount)
+    public static System.Action<GigData, float> OnGigReadyForPickup;
+
+    // THE FIX: Added PlayerController to the payload
+    // Payload: (GigTaskInfo task, GameObject heldItem, GigPropRepair propScript, PlayerController triggeringPlayer)
+    public static System.Action<object, GameObject, GigPropRepair, PlayerController> OnStartMinigame;
+
+    // THE FIX: Added PlayerController so only the specific player is unlocked
+    // Triggered when a minigame UI closes (win or lose)
+    public static System.Action<PlayerController> OnMinigameEnded;
 
 }
