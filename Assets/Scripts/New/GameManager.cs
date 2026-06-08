@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 		// Set the starting hour to whatever the Day Start is, so it doesn't break if you change it
 		currentHour = dayStartHour;
 		ChangePhase(phaseDay);
+
+		EventBus.OnTimeTick?.Invoke(currentHour);
 	}
 
 	void Update()
