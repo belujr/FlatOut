@@ -779,60 +779,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.5, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
---- !u!1 &329766544
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 329766546}
-  - component: {fileID: 329766545}
-  m_Layer: 0
-  m_Name: CalendarManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &329766545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329766544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f81930241cf29241895c9cc82427528, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CalendarManager
-  daysPerMonth: 15
-  startDay: 1
-  startMonth: 1
-  dateText: {fileID: 369283223}
-  newDayBannerRoot: {fileID: 0}
-  newDayBannerText: {fileID: 0}
-  newDayBannerDuration: 2.5
-  newMonthBannerRoot: {fileID: 0}
-  newMonthBannerText: {fileID: 0}
-  newMonthBannerDuration: 4
---- !u!4 &329766546
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329766544}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.69339, y: 0.29878, z: 7.01006}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,6 +938,7 @@ MonoBehaviour:
   maxZoomDistance: 50
   zoomLimiter: 15
   smoothTime: 0.3
+<<<<<<< HEAD
 --- !u!1 &369283220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1107,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 550429738}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> parent of 134f985 (add day and month logic)
 --- !u!1 &396238073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,11 +1281,15 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1036059984}
   - {fileID: 723152698}
   - {fileID: 396238074}
+<<<<<<< HEAD
   - {fileID: 1036059984}
   - {fileID: 369283221}
   - {fileID: 1846678118}
+=======
+>>>>>>> parent of 134f985 (add day and month logic)
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2382,7 +2335,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036059983}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2943,11 +2896,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdb8f9ba07aa894d8bf4e30febb0f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+<<<<<<< HEAD
   dayDurationMinutes: 0.25
   nightDurationMinutes: 0.25
+=======
+  dayDurationMinutes: 0.5
+  nightDurationMinutes: 0.5
+>>>>>>> parent of 134f985 (add day and month logic)
   dayStartHour: 6
   nightStartHour: 20
-  currentHour: 6
+  currentHour: 8
 --- !u!4 &1249365181
 Transform:
   m_ObjectHideFlags: 0
@@ -5754,7 +5712,10 @@ SceneRoots:
   - {fileID: 805786337}
   - {fileID: 1450387626}
   - {fileID: 399385181}
+<<<<<<< HEAD
   - {fileID: 329766546}
   - {fileID: 971228740}
   - {fileID: 188466055}
   - {fileID: 550429738}
+=======
+>>>>>>> parent of 134f985 (add day and month logic)
