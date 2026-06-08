@@ -1,4 +1,4 @@
- using UnityEngine;
+using UnityEngine;
 
 // This is just a flag so the cleaning system knows what to suck up!
 public class SmallGarbage : MonoBehaviour

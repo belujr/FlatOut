@@ -8,8 +8,6 @@ TagManager:
   - Wall
   - ThrownWeapon
   - Flatmate
-  - door
-  - furniture
   layers:
   - Default
   - TransparentFX
@@ -22,8 +20,8 @@ TagManager:
   - Player
   - WeaponItem
   - Corridor
-  - Nev-mesh
-  - No-Nev
+  - 
+  - 
   - 
   - 
   - 
