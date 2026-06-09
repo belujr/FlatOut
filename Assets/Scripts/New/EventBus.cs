@@ -74,4 +74,9 @@ public static class EventBus
     // Triggered when a minigame UI closes (win or lose)
     public static System.Action<PlayerController> OnMinigameEnded;
 
+    // --- BROKER EVENTS ---
+    // Payload: (int angerValue 0-100)
+    // Fired by BrokerAngerSystem every time anger changes.
+    // BrokerAngerUI listens to this to update the percentage display.
+    public static Action<int> OnBrokerAngerChanged;
 }
