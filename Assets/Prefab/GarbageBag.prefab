@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4474335868412449809}
   - component: {fileID: 4984961045261260497}
   - component: {fileID: 8103102278936998506}
-  - component: {fileID: 724232386262338368}
   - component: {fileID: 2782438479892915274}
   m_Layer: 0
   m_Name: GarbageBag
@@ -78,37 +77,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &724232386262338368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094807931185237240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a0911f50c5e6e940b6384f660fb68e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponDamage
-  damageMultiplier: 2
-  minimumHitVelocity: 4
-  ownerID: 0
-  knockbackStrength: 10
-  maxKnockbackVelocity: 15
-  verticalLift: 0.4
-  stunThreshold: 0.6
-  isSharp: 0
-  stickVelocity: 8
-  embedDepth: 0.15
-  isBreakable: 0
-  breakVelocity: 10
-  brokenPrefab: {fileID: 0}
-  breakDamageMultiplier: 1.5
-  bloodPrefab: {fileID: 0}
-  glassBloodPrefab: {fileID: 0}
-  weaponLifetime: 5
-  bloodLifetime: 3
-  currentHolder: {fileID: 0}
 --- !u!114 &2782438479892915274
 MonoBehaviour:
   m_ObjectHideFlags: 0

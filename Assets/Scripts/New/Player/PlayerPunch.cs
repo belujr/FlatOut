@@ -30,8 +30,6 @@ public class PlayerPunch : MonoBehaviour
 	private bool isPunchingLeft = false;
 	private bool isPunchingRight = false;
 
-
-
 	void Awake()
 	{
 		if (playerController == null) playerController = GetComponent<PlayerController>();
@@ -41,11 +39,11 @@ public class PlayerPunch : MonoBehaviour
 
 	public void OnPunchLeft(InputValue value)
 	{
-		if (playerController.isPlayingMinigame) return; // THE FIX
+		if (playerController.isPlayingMinigame) return;
 		if (value.isPressed && playerController.currentState != playerController.stateParry)
 		{
-			// THE FIX: Check if we are holding food in the LEFT hand first!
-			if (TryConsumeItem(leftGrab)) return;
+			// Intercept immediately if holding food item to consume it
+			if (TryUseSpecialItem(leftGrab)) return;
 
 			if (!isPunchingLeft) StartCoroutine(PunchRoutine(leftArmRb, leftHand, true, leftGrab));
 		}
@@ -53,32 +51,29 @@ public class PlayerPunch : MonoBehaviour
 
 	public void OnPunchRight(InputValue value)
 	{
-		if (playerController.isPlayingMinigame) return; // THE FIX
+		if (playerController.isPlayingMinigame) return;
 		if (value.isPressed && playerController.currentState != playerController.stateParry)
 		{
-			// THE FIX: Check if we are holding food in the RIGHT hand first!
-			if (TryConsumeItem(rightGrab)) return;
+			// Intercept immediately if holding food item to consume it
+			if (TryUseSpecialItem(rightGrab)) return;
 
 			if (!isPunchingRight) StartCoroutine(PunchRoutine(rightArmRb, rightHand, false, rightGrab));
 		}
 	}
 
-	// --- NEW: The Eating Logic Interceptor ---
-	private bool TryConsumeItem(PlayerGrab handGrab)
+	private bool TryUseSpecialItem(PlayerGrab handGrab)
 	{
-		// Are we holding something?
 		if (handGrab != null && handGrab.heldItem != null)
 		{
-			// Is it food?
+			// Is it food? (Eat it instantly without launching a physical swing)
 			ConsumableItem food = handGrab.heldItem.GetComponent<ConsumableItem>();
 			if (food != null)
 			{
-				// Eat it and stop the punch!
 				food.Consume(handGrab, playerController.playerID);
 				return true;
 			}
 		}
-		// We are not holding food, proceed with the normal punch!
+
 		return false;
 	}
 
@@ -99,10 +94,23 @@ public class PlayerPunch : MonoBehaviour
 		while (timer < punchActiveDuration)
 		{
 			bool isHoldingWeapon = grabScript != null && grabScript.heldItem != null;
+			bool isHoldingMedkit = false;
+			MedkitItem medkit = null;
 
-			if (!isHoldingWeapon)
+			// Dynamically evaluate if we are currently holding a Medkit
+			if (isHoldingWeapon)
 			{
-				Collider[] hits = Physics.OverlapSphere(handTransform.position, hitboxRadius);
+				medkit = grabScript.heldItem.GetComponentInChildren<MedkitItem>();
+				if (medkit == null) medkit = grabScript.heldItem.GetComponentInParent<MedkitItem>();
+				if (medkit != null) isHoldingMedkit = true;
+			}
+
+			// Run hit detection if hands are empty OR holding a medical tool
+			if (!isHoldingWeapon || isHoldingMedkit)
+			{
+				// FORGIVING HITBOX: Triple the sphere radius during a medkit swing so it hits the floor perfectly!
+				float currentRadius = isHoldingMedkit ? hitboxRadius * 3f : hitboxRadius;
+				Collider[] hits = Physics.OverlapSphere(handTransform.position, currentRadius);
 
 				foreach (Collider col in hits)
 				{
@@ -112,7 +120,16 @@ public class PlayerPunch : MonoBehaviour
 					{
 						hitPlayerIDs.Add(victim.playerID);
 
+						// Handle tactical medical revival tracking
+						if (isHoldingMedkit && medkit.TryHeal(victim, grabScript))
+						{
+							// Clear the punch state flag before dropping out of the thread loop
+							if (isLeft) isPunchingLeft = false;
+							else isPunchingRight = false;
+							yield break;
+						}
 
+						// Execute standard physical damage/knockback on healthy characters
 						ApplyPunchEffects(victim);
 					}
 				}
@@ -126,7 +143,6 @@ public class PlayerPunch : MonoBehaviour
 		else isPunchingRight = false;
 	}
 
-	// Your exact physics logic remains identical
 	void ApplyPunchEffects(PlayerController victimControl)
 	{
 		if (victimControl.currentState == victimControl.stateParry)
@@ -159,13 +175,14 @@ public class PlayerPunch : MonoBehaviour
 		}
 	}
 
-	IEnumerator HandlePunchStun(PlayerController control, float duration)
+	private IEnumerator HandlePunchStun(PlayerController victim, float duration)
 	{
-		yield return new WaitForFixedUpdate();
-		control.ChangeState(control.stateRagdoll);
-
+		victim.ChangeState(victim.stateRagdoll);
 		yield return new WaitForSeconds(duration);
-		control.ChangeState(control.stateLocomotion);
-	}
 
+		if (!victim.isIncapacitated && victim.currentState == victim.stateRagdoll)
+		{
+			victim.ChangeState(victim.stateLocomotion);
+		}
+	}
 }

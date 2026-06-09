@@ -36,7 +36,8 @@ public class PlayerPhone : MonoBehaviour
 
 	[Header("Survival Settings")]
 	public float hungerDrainPerSecond = 0.5f;
-	private bool hasPassedOutFromHunger = false;
+	// Change this line:
+	public bool hasPassedOutFromHunger = false;
 
 	void Awake()
 	{

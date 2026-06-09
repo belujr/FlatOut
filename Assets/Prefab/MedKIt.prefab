@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 8595645864121953712}
   - component: {fileID: 6384876227240607577}
   - component: {fileID: 6498894627259700312}
+  - component: {fileID: -270316658468500957}
   m_Layer: 0
   m_Name: MedKIt
   m_TagString: Untagged
@@ -108,6 +109,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractableItem
   grabSockets:
   - {fileID: 1987215080454378949}
+--- !u!114 &-270316658468500957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888988471014388761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5681f7bc3d1e0954691c995a7b70e6b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MedkitItem
 --- !u!1 &6680550939513451548
 GameObject:
   m_ObjectHideFlags: 0
