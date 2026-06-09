@@ -316,12 +316,16 @@ public class MinigameManagerUI : MonoBehaviour
 	private IEnumerator TransitionToNextMechanic()
 	{
 		isTransitioning = true;
-		ShowFeedback("NEXT!", Color.cyan, 0.75f);
+
+		ShowFeedback("NEXT!", Color.cyan, 0.5f);
 
 		if (panelJoystickRotate != null) panelJoystickRotate.SetActive(false);
 		if (panelTimingQTE != null) panelTimingQTE.SetActive(false);
 
-		yield return new WaitForSeconds(0.75f);
+		// THE FIX: Increased the buffer from 0.15s to 0.4s.
+		// This gives the player exactly enough time to stop spinning their joystick 
+		// so it doesn't accidentally trigger the next QTE as a failure!
+		yield return new WaitForSeconds(0.4f);
 
 		SetupCurrentMechanic();
 		isTransitioning = false;
@@ -359,22 +363,27 @@ public class MinigameManagerUI : MonoBehaviour
 	private void WinMinigame()
 	{
 		isEnding = true;
-		ShowFeedback("REPAIR SUCCESS!", Color.green, 1.5f);
+		ShowFeedback("REPAIR SUCCESS!", Color.green, 1.0f);
 		currentProp.OnMinigameSuccess(currentItem);
-		Invoke(nameof(CloseUI), 1.0f);
+
+		// 3. THE FIX: Dropped from 1.0 second to 0.25 seconds.
+		// The UI will vanish almost instantly, making the gameplay feel fluid and continuous.
+		Invoke(nameof(CloseUI), 0.25f);
 	}
 
 	private void FailMinigame(string reason)
 	{
 		isEnding = true;
-		ShowFeedback($"MISTAKE! {reason}", Color.red, 1.5f);
+		ShowFeedback($"MISTAKE! {reason}", Color.red, 1.0f);
 		EventBus.OnGenericTextNotification?.Invoke(reason, "-$5 Penalty");
 		EventBus.OnGigMistakeMade?.Invoke(5f);
 		currentProp.OnMinigameFailed();
 
 		StartCoroutine(HapticFeedbackRoutine(0.5f, 0.8f, 0.4f));
 
-		Invoke(nameof(CloseUI), 1.5f);
+		// 4. THE FIX: Dropped from 1.5 seconds to 0.6 seconds.
+		// Failing should feel punishing, but it shouldn't lock the player out of moving for an eternity.
+		Invoke(nameof(CloseUI), 0.6f);
 	}
 
 	private IEnumerator HapticFeedbackRoutine(float lowFreq, float highFreq, float duration)
