@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c408b96ff4ae564d92e7b04091b687a, type: 3}
+  m_Name: CycleGig1
+  m_EditorClassIdentifier: Assembly-CSharp::GigData
+  gigTitle: Repair Cycle lvl1
+  shortDescription: Need a new chain and Gear
+  fullDescription: Hey, Can you Add a new Gear in my Cycle and also a new chain,
+    and can you grease it
+  startingPayoutAmount: 100
+  brokenPropPrefab: {fileID: 5646255760207663483, guid: 08a4d67a6b897af4a8a7db29afa26857, type: 3}
+  requiredTasks:
+  - taskDescription: Add a New Gear
+    requiredItemName: Gear
+    mechanicsSequence: 0100000000000000
+    difficultyLevel: 2
+  - taskDescription: Add a New Chain
+    requiredItemName: Chain
+    mechanicsSequence: 0000000001000000
+    difficultyLevel: 2
+  - taskDescription: Add Grease
+    requiredItemName: Grease
+    mechanicsSequence: 01000000
+    difficultyLevel: 3

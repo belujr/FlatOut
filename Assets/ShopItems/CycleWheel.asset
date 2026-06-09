@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88159e02d0f91574a8d752fd808db9d6, type: 3}
+  m_Name: CycleWheel
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  itemName: Wheel
+  itemCost: 100
+  itemIcon: {fileID: 0}
+  prefabToSpawn: {fileID: 7375599655100691342, guid: 23511ce5391a82348874528beaff91ca, type: 3}
+  minDeliverySeconds: 5
+  maxDeliverySeconds: 10

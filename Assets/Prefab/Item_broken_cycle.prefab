@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GigPropRepair
   associatedGig: {fileID: 11400000, guid: 1b933cb9bc69e4f499a49516ab135a1b, type: 2}
+  partMappings: []
   successParticles: {fileID: 7503603435790124562}
   isMinigameActive: 0
 --- !u!1 &5400639049971524421

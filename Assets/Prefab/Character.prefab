@@ -5462,6 +5462,7 @@ MonoBehaviour:
   maxHunger: 100
   currentHunger: 100
   hungerDrainPerSecond: 0.5
+  hasPassedOutFromHunger: 0
 --- !u!114 &4217306044708868697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9610,6 +9611,11 @@ MonoBehaviour:
   availableGigItems:
   - {fileID: 11400000, guid: 5b425635fe0a618479c21caeec16124d, type: 2}
   - {fileID: 11400000, guid: f2a44cfbea7474f4eb298debeae57bc4, type: 2}
+  - {fileID: 11400000, guid: f13d2c3289569dd4096adfa5ecd530a0, type: 2}
+  - {fileID: 11400000, guid: ecec05dbb01ec374ea0e6258e15a3e8d, type: 2}
+  - {fileID: 11400000, guid: e30c376dbd1bc1b43af6f552849d3301, type: 2}
+  - {fileID: 11400000, guid: baf04137d49700148b60d9e7921e2c7e, type: 2}
+  - {fileID: 11400000, guid: 4e9af85a0d346d843a961d10d349cf0d, type: 2}
   firstCategoryButton: {fileID: 8228899142417197191}
   accountBalanceText: {fileID: 0}
 --- !u!114 &3938466046801545405

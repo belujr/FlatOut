@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c408b96ff4ae564d92e7b04091b687a, type: 3}
+  m_Name: CycleGig2
+  m_EditorClassIdentifier: Assembly-CSharp::GigData
+  gigTitle: Repair Cycle lvl3
+  shortDescription: Need a new Wheel and Tube
+  fullDescription: 'Hey, add a new Back Wheel, add a new Tube for the Front Wheel,
+    and also add a new Seat '
+  startingPayoutAmount: 300
+  brokenPropPrefab: {fileID: 6959561332211793095, guid: 2d908ba97373a7d4ba370e9aead4e223, type: 3}
+  requiredTasks:
+  - taskDescription: 'Add Tube '
+    requiredItemName: Tube
+    mechanicsSequence: 0100000000000000
+    difficultyLevel: 2
+  - taskDescription: 'Add Back Wheel '
+    requiredItemName: Wheel
+    mechanicsSequence: 010000000000000001000000
+    difficultyLevel: 3
+  - taskDescription: Add Seat
+    requiredItemName: Seat
+    mechanicsSequence: 01000000
+    difficultyLevel: 5

@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Chain
   itemCost: 5
   itemIcon: {fileID: 0}
-  prefabToSpawn: {fileID: 7362083554668480027, guid: 55b65913dcf02c146830b3e692f9fd7d, type: 3}
+  prefabToSpawn: {fileID: 2787279410769487499, guid: 6f4b3faf0cf54d3408526e7c30d924a6, type: 3}
   minDeliverySeconds: 5
   maxDeliverySeconds: 10

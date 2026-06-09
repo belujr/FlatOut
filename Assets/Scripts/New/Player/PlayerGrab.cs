@@ -174,7 +174,7 @@ public class PlayerGrab : MonoBehaviour
 			}
 
 			bool isAlreadyHeld = false;
-			GrabSocket[] allSockets = item.transform.root.GetComponentsInChildren<GrabSocket>();
+			GrabSocket[] allSockets = item.GetComponentsInChildren<GrabSocket>();
 			foreach (GrabSocket s in allSockets)
 			{
 				if (s != socketComponent && s.isOccupied) isAlreadyHeld = true;
@@ -196,7 +196,7 @@ public class PlayerGrab : MonoBehaviour
 			item.transform.rotation = weaponSocket.rotation;
 		}
 
-		Collider[] allItemColliders = item.transform.root.GetComponentsInChildren<Collider>();
+		Collider[] allItemColliders = item.GetComponentsInChildren<Collider>();
 		foreach (Collider itemCol in allItemColliders)
 		{
 			foreach (Collider playerCol in playerColliders) Physics.IgnoreCollision(playerCol, itemCol, true);
@@ -204,7 +204,7 @@ public class PlayerGrab : MonoBehaviour
 
 		if (playerController != null)
 		{
-			WeaponDamage[] weapons = item.transform.root.GetComponentsInChildren<WeaponDamage>();
+			WeaponDamage[] weapons = item.GetComponentsInChildren<WeaponDamage>();
 			foreach (WeaponDamage wd in weapons)
 			{
 				wd.ownerID = playerController.playerID;
@@ -252,7 +252,7 @@ public class PlayerGrab : MonoBehaviour
 		}
 
 		bool isStillHeldByOtherHand = false;
-		GrabSocket[] allSockets = heldItem.transform.root.GetComponentsInChildren<GrabSocket>();
+		GrabSocket[] allSockets = heldItem.GetComponentsInChildren<GrabSocket>();
 		foreach (GrabSocket s in allSockets)
 		{
 			if (s.isOccupied) isStillHeldByOtherHand = true;
@@ -260,14 +260,14 @@ public class PlayerGrab : MonoBehaviour
 
 		if (!isStillHeldByOtherHand)
 		{
-			Collider[] allItemColliders = heldItem.transform.root.GetComponentsInChildren<Collider>();
+			Collider[] allItemColliders = heldItem.GetComponentsInChildren<Collider>();
 			foreach (Collider itemCol in allItemColliders)
 			{
 				foreach (Collider playerCol in playerColliders) Physics.IgnoreCollision(playerCol, itemCol, false);
 			}
 		}
 
-		WeaponDamage[] weapons = heldItem.transform.root.GetComponentsInChildren<WeaponDamage>();
+		WeaponDamage[] weapons = heldItem.GetComponentsInChildren<WeaponDamage>();
 		foreach (WeaponDamage wd in weapons) wd.currentHolder = null;
 
 		heldItem.tag = "ThrownWeapon";
@@ -294,7 +294,7 @@ public class PlayerGrab : MonoBehaviour
 		}
 
 		bool isStillHeldByOtherHand = false;
-		GrabSocket[] allSockets = heldItem.transform.root.GetComponentsInChildren<GrabSocket>();
+		GrabSocket[] allSockets = heldItem.GetComponentsInChildren<GrabSocket>();
 		foreach (GrabSocket s in allSockets)
 		{
 			if (s.isOccupied) isStillHeldByOtherHand = true;
@@ -302,7 +302,7 @@ public class PlayerGrab : MonoBehaviour
 
 		if (!isStillHeldByOtherHand)
 		{
-			Collider[] allItemColliders = heldItem.transform.root.GetComponentsInChildren<Collider>();
+			Collider[] allItemColliders = heldItem.GetComponentsInChildren<Collider>();
 			foreach (Collider itemCol in allItemColliders)
 			{
 				foreach (Collider playerCol in playerColliders) Physics.IgnoreCollision(playerCol, itemCol, false);

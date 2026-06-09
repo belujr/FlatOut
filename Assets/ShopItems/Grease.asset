@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grease
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
   itemName: Grease
-  itemCost: 0
+  itemCost: 10
   itemIcon: {fileID: 0}
   prefabToSpawn: {fileID: 2992430578281549704, guid: e3b1fb8dc85915544bdd8095b31e8a43, type: 3}
   minDeliverySeconds: 5
