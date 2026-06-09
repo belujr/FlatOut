@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
   itemName: Wheel
   itemCost: 100
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 9268a35c339d81146b34461a77eef59a, type: 3}
   prefabToSpawn: {fileID: 7375599655100691342, guid: 23511ce5391a82348874528beaff91ca, type: 3}
   minDeliverySeconds: 5
   maxDeliverySeconds: 10

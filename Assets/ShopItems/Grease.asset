@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
   itemName: Grease
   itemCost: 10
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: e850fad038a9b324bb78344f322fc834, type: 3}
   prefabToSpawn: {fileID: 2992430578281549704, guid: e3b1fb8dc85915544bdd8095b31e8a43, type: 3}
   minDeliverySeconds: 5
   maxDeliverySeconds: 10

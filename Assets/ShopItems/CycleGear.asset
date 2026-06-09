@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
   itemName: Gear
   itemCost: 20
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 8947a1701d519a0418265a93da24e4bb, type: 3}
   prefabToSpawn: {fileID: 2975598139392666545, guid: b41aba2173b896647b01bfeba52f1bd5, type: 3}
   minDeliverySeconds: 5
   maxDeliverySeconds: 10

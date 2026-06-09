@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
   itemName: Handle
   itemCost: 40
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: ee90db31dba7b784ebbdc81cc6043ac6, type: 3}
   prefabToSpawn: {fileID: 4539854507037179589, guid: c6af1b9455bf7f743886a755c4904fd9, type: 3}
   minDeliverySeconds: 5
   maxDeliverySeconds: 10

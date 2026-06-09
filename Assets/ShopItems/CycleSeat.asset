@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
   itemName: Seat
   itemCost: 25
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 479b5cb73735aac43b3ec27a834ea65d, type: 3}
   prefabToSpawn: {fileID: 3297001072112274792, guid: 3a4814617fa997d458bfc23f7b403906, type: 3}
   minDeliverySeconds: 5
   maxDeliverySeconds: 10
