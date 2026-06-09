@@ -18,10 +18,12 @@ public class App_Shopping : MonoBehaviour
 	public Transform shopItemsGrid;
 	public ShopItemData[] availableFurnitureItems;
 	public ShopItemData[] availableFoodItems;
+	public ShopItemData[] availableGigItems; // <-- NEW: Gigs Category Array
 
 	[Header("Navigation Memory")]
 	public GameObject firstCategoryButton;
 	private GameObject buttonThatOpenedApp;
+	private GameObject lastSelectedCategoryButton; // <-- NEW: Remembers what category you opened
 
 	[Header("Economy UI")]
 	public TextMeshProUGUI accountBalanceText;
@@ -117,8 +119,34 @@ public class App_Shopping : MonoBehaviour
 		}
 	}
 
-	public void OpenFurnitureCategory() { PopulateShopGrid(availableFurnitureItems); }
-	public void OpenFoodCategory() { PopulateShopGrid(availableFoodItems); }
+	// --- NEW: Helper method to memorize the cursor position ---
+	private void RememberCategory()
+	{
+		if (localEventSystem != null && localEventSystem.currentSelectedGameObject != null)
+		{
+			lastSelectedCategoryButton = localEventSystem.currentSelectedGameObject;
+		}
+	}
+
+	// --- MODIFIED: Categories now remember before opening ---
+	public void OpenFurnitureCategory()
+	{
+		RememberCategory();
+		PopulateShopGrid(availableFurnitureItems);
+	}
+
+	public void OpenFoodCategory()
+	{
+		RememberCategory();
+		PopulateShopGrid(availableFoodItems);
+	}
+
+	// --- NEW: Open Gigs Category ---
+	public void OpenGigsCategory()
+	{
+		RememberCategory();
+		PopulateShopGrid(availableGigItems);
+	}
 
 	public void CloseCategory()
 	{
@@ -128,7 +156,8 @@ public class App_Shopping : MonoBehaviour
 		if (localEventSystem != null)
 		{
 			localEventSystem.SetSelectedGameObject(null);
-			localEventSystem.SetSelectedGameObject(firstCategoryButton);
+			// --- MODIFIED: Return to the remembered button, or fallback to the first one ---
+			localEventSystem.SetSelectedGameObject(lastSelectedCategoryButton != null ? lastSelectedCategoryButton : firstCategoryButton);
 		}
 	}
 

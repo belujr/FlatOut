@@ -170,31 +170,52 @@ public class App_Gigs : MonoBehaviour
 
 	public void GoBack()
 	{
-		panelGigDetails.SetActive(false);
-
-		if (buttonThatOpenedDetails != null && buttonThatOpenedDetails.transform.IsChildOf(panelHome.transform))
+		// 1. Are we looking at the Ongoing Gig? Back takes us to the Home Screen.
+		if (panelOngoingGig != null && panelOngoingGig.activeSelf)
 		{
-			panelHome.SetActive(true);
-
-			if (localEventSystem != null)
-			{
-				localEventSystem.SetSelectedGameObject(null);
-
-				bool canSnap = false;
-				if (buttonThatOpenedDetails.activeInHierarchy)
-				{
-					CanvasGroup cg = buttonThatOpenedDetails.GetComponent<CanvasGroup>();
-					if (cg == null || cg.interactable == true) canSnap = true;
-				}
-
-				if (canSnap) localEventSystem.SetSelectedGameObject(buttonThatOpenedDetails);
-				else if (gigsAppButton != null) localEventSystem.SetSelectedGameObject(gigsAppButton);
-			}
+			CloseGigsApp();
+			return;
 		}
-		else
+
+		// 2. Are we looking at the Gig Details? Back takes us to the Gigs List (or Home).
+		if (panelGigDetails != null && panelGigDetails.activeSelf)
 		{
-			panelGigsList.SetActive(true);
-			PopulateGigsList();
+			panelGigDetails.SetActive(false);
+
+			// Did we open this from a home screen notification?
+			if (buttonThatOpenedDetails != null && buttonThatOpenedDetails.transform.IsChildOf(panelHome.transform))
+			{
+				panelHome.SetActive(true);
+
+				if (localEventSystem != null)
+				{
+					localEventSystem.SetSelectedGameObject(null);
+
+					bool canSnap = false;
+					if (buttonThatOpenedDetails.activeInHierarchy)
+					{
+						CanvasGroup cg = buttonThatOpenedDetails.GetComponent<CanvasGroup>();
+						if (cg == null || cg.interactable == true) canSnap = true;
+					}
+
+					if (canSnap) localEventSystem.SetSelectedGameObject(buttonThatOpenedDetails);
+					else if (gigsAppButton != null) localEventSystem.SetSelectedGameObject(gigsAppButton);
+				}
+			}
+			else
+			{
+				// We opened it normally, go back to the list!
+				panelGigsList.SetActive(true);
+				PopulateGigsList();
+			}
+			return;
+		}
+
+		// 3. Are we looking at the Gigs List? Back takes us to the Home Screen.
+		if (panelGigsList != null && panelGigsList.activeSelf)
+		{
+			CloseGigsApp();
+			return;
 		}
 	}
 

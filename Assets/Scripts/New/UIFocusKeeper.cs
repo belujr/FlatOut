@@ -7,7 +7,7 @@ public class UIFocusKeeper : MonoBehaviour
 	private MultiplayerEventSystem localEventSystem;
 	private GameObject lastKnownSelected;
 
-	[Tooltip("Drag your first App Button here (e.g., App_Gigs)")]
+	[Tooltip("Drag your fallback App Button here (e.g., App_Shopping)")]
 	public GameObject fallbackButton;
 
 	void Awake()

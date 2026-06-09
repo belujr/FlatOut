@@ -37,4 +37,14 @@ public class UIHoverBorder : MonoBehaviour, ISelectHandler, IDeselectHandler, IP
 	public void OnDeselect(BaseEventData eventData) { SetupOutline(); borderOutline.enabled = false; }
 	public void OnPointerEnter(PointerEventData eventData) { SetupOutline(); borderOutline.enabled = true; }
 	public void OnPointerExit(PointerEventData eventData) { SetupOutline(); borderOutline.enabled = false; }
+
+	void OnDisable()
+	{
+		// THE FIX: If the UI panel turns off, kill the outline immediately
+		// so it isn't stuck on when we come back!
+		if (borderOutline != null)
+		{
+			borderOutline.enabled = false;
+		}
+	}
 }
