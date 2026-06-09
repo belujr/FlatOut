@@ -21,7 +21,7 @@ public class PlayerGrab : MonoBehaviour
 	[Header("Throw Feel Settings")]
 	public float throwVelocityMultiplier = 0.8f;
 	public float maxThrowVelocity = 12f;
-	public float minThrowSpeedThreshold = 2.5f; // <-- NEW: Threshold for dropping vs throwing
+	public float minThrowSpeedThreshold = 2.5f;
 
 	public GameObject heldItem;
 	private FixedJoint currentJoint;
@@ -39,14 +39,18 @@ public class PlayerGrab : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
+		// 1. Check for items (these HAVE rigidbodies)
 		if (other.attachedRigidbody != null)
 		{
-			if ((other.attachedRigidbody.CompareTag("Weapon") || other.attachedRigidbody.CompareTag("ThrownWeapon")) && heldItem == null)
+			InteractableItem interactable = other.attachedRigidbody.GetComponent<InteractableItem>();
+			if (interactable != null)
 			{
 				hoveredWeapon = other.attachedRigidbody.gameObject;
 			}
 		}
-		else if (other.CompareTag("Wall") && !isGrabbingWall)
+
+		// 2. THE FIX: Check for walls OUTSIDE the rigidbody check! (Walls don't have rigidbodies)
+		if (other.CompareTag("Wall"))
 		{
 			hoveredWall = other.gameObject;
 		}
@@ -54,11 +58,16 @@ public class PlayerGrab : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-		if (hoveredWeapon != null && other.attachedRigidbody != null && other.attachedRigidbody.gameObject == hoveredWeapon)
+		if (other.attachedRigidbody != null)
 		{
-			hoveredWeapon = null;
+			if (hoveredWeapon == other.attachedRigidbody.gameObject)
+			{
+				hoveredWeapon = null;
+			}
 		}
-		else if (hoveredWall != null && other.gameObject == hoveredWall)
+
+		// THE FIX: Separate wall exit check!
+		if (other.CompareTag("Wall") && hoveredWall == other.gameObject)
 		{
 			hoveredWall = null;
 		}
@@ -69,7 +78,6 @@ public class PlayerGrab : MonoBehaviour
 
 	private void HandleTriggerInput(bool isPressed)
 	{
-		// THE MINIGAME LOCK FIX: Stop hands from grabbing/dropping during QTEs
 		if (playerController != null && playerController.isPlayingMinigame) return;
 
 		if (!isPressed) hasAcknowledgedTrigger = false;
@@ -157,15 +165,14 @@ public class PlayerGrab : MonoBehaviour
 			{
 				if (socketComponent.isOccupied)
 				{
-					heldItem = null; // Abort the grab!
+					heldItem = null;
 					return;
 				}
 
 				currentOccupiedSocket = socketComponent;
-				currentOccupiedSocket.isOccupied = true; // Lock it down!
+				currentOccupiedSocket.isOccupied = true;
 			}
 
-			// --- THE TWO-HANDED SNAP FIX ---
 			bool isAlreadyHeld = false;
 			GrabSocket[] allSockets = item.transform.root.GetComponentsInChildren<GrabSocket>();
 			foreach (GrabSocket s in allSockets)
@@ -175,6 +182,7 @@ public class PlayerGrab : MonoBehaviour
 
 			if (!isAlreadyHeld)
 			{
+				// THE SNAPPING MATH IS RIGHT HERE!
 				Quaternion rotationDifference = weaponSocket.rotation * Quaternion.Inverse(bestSocket.rotation);
 				item.transform.rotation = rotationDifference * item.transform.rotation;
 
@@ -222,7 +230,6 @@ public class PlayerGrab : MonoBehaviour
 			currentOccupiedSocket = null;
 		}
 
-		// --- THE DROP VS THROW FIX ---
 		if (itemRb != null && forearmRigidbody != null)
 		{
 			Vector3 armVel = forearmRigidbody.linearVelocity;
@@ -275,7 +282,6 @@ public class PlayerGrab : MonoBehaviour
 		Rigidbody itemRb = heldItem.GetComponent<Rigidbody>();
 		if (currentJoint != null) Destroy(currentJoint);
 
-		// --- THE DROP CLAMP FIX ---
 		if (itemRb != null)
 		{
 			itemRb.linearVelocity *= 0.5f;
