@@ -21,13 +21,39 @@ MonoBehaviour:
   requiredTasks:
   - taskDescription: Add a New Gear
     requiredItemName: Gear
-    mechanicsSequence: 0100000000000000
-    difficultyLevel: 2
+    mechanicsSequence:
+    - mechanicType: 1
+      difficultyLevel: 2
+      arrowSpeed: 255
+      safeZoneFill: 0.2
+      drainRate: 180
+    - mechanicType: 0
+      difficultyLevel: 2
+      arrowSpeed: 250
+      safeZoneFill: 0.2
+      drainRate: 180
+    taskFailurePenalty: 5
   - taskDescription: Add a New Chain
     requiredItemName: Chain
-    mechanicsSequence: 0000000001000000
-    difficultyLevel: 2
+    mechanicsSequence:
+    - mechanicType: 0
+      difficultyLevel: 2
+      arrowSpeed: 0
+      safeZoneFill: 0
+      drainRate: 180
+    - mechanicType: 1
+      difficultyLevel: 2
+      arrowSpeed: 250
+      safeZoneFill: 0.2
+      drainRate: 0
+    taskFailurePenalty: 5
   - taskDescription: Add Grease
     requiredItemName: Grease
-    mechanicsSequence: 01000000
-    difficultyLevel: 3
+    mechanicsSequence:
+    - mechanicType: 1
+      difficultyLevel: 3
+      arrowSpeed: 255
+      safeZoneFill: 0.2
+      drainRate: 0
+    taskFailurePenalty: 2
+  gigRiskLevel: 0

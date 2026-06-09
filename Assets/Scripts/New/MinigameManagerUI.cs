@@ -21,13 +21,8 @@ public class MinigameManagerUI : MonoBehaviour
 	public TextMeshProUGUI instructionsText;
 
 	[Header("Dynamic Tracking & Scaling")]
-	[Tooltip("How high above the player's feet the UI should float. Increase this if it overlaps their head!")]
 	public float hoverHeight = 2.2f;
-
-	[Tooltip("If true, the UI will shrink when the camera zooms out.")]
 	public bool scaleWithDistance = true;
-
-	[Tooltip("The camera distance where the UI is perfectly 1x scale.")]
 	public float referenceDistance = 15f;
 	public float minScale = 0.5f;
 	public float maxScale = 1.5f;
@@ -43,18 +38,12 @@ public class MinigameManagerUI : MonoBehaviour
 	public RectTransform rotatingArrow;
 	public RectTransform safeZoneIndicator;
 	public QTEPromptConfig[] availableQTEPrompts;
-	public float baseArrowSpeed = 250f;
-	public float baseSafeZoneFill = 0.2f;
 
 	[Header("Rotate Minigame Hookups")]
 	public GameObject panelJoystickRotate;
 	public Image rotateInstructionIcon;
 	public Image circularProgressBar;
 	public Sprite defaultRotateIcon;
-
-	[Tooltip("How fast it drains back to 0 (Degrees per second)")]
-	public float baseDrainRate = 180f;
-	[Tooltip("How fast you MUST spin to fill the bar (Degrees per second)")]
 	public float requiredSpinSpeed = 360f;
 
 	// --- Player Isolation ---
@@ -121,7 +110,9 @@ public class MinigameManagerUI : MonoBehaviour
 		if (panelJoystickRotate != null) panelJoystickRotate.SetActive(false);
 		if (panelTimingQTE != null) panelTimingQTE.SetActive(false);
 
-		activeMechanic = currentTaskInfo.mechanicsSequence[currentSequenceIndex].ToString();
+		// Get the specific data bundle for this step
+		MechanicConfig currentStep = currentTaskInfo.mechanicsSequence[currentSequenceIndex];
+		activeMechanic = currentStep.mechanicType.ToString();
 
 		if (activeMechanic.Contains("Rotate"))
 		{
@@ -132,7 +123,8 @@ public class MinigameManagerUI : MonoBehaviour
 			accumulatedRotation = 0f;
 			if (circularProgressBar != null) circularProgressBar.fillAmount = 0f;
 
-			int requiredSpins = 1 + (currentTaskInfo.difficultyLevel * 2);
+			// Use this step's specific difficulty level for spins
+			int requiredSpins = 1 + (currentStep.difficultyLevel * 2);
 			requiredRotation = requiredSpins * 360f;
 		}
 		else if (activeMechanic.Contains("QTE"))
@@ -140,7 +132,8 @@ public class MinigameManagerUI : MonoBehaviour
 			if (instructionsText != null) instructionsText.text = "Hit the Safe Zone!";
 			if (panelTimingQTE != null) panelTimingQTE.SetActive(true);
 
-			qteTotalSteps = currentTaskInfo.difficultyLevel;
+			// Use this step's specific difficulty level for consecutive hits
+			qteTotalSteps = currentStep.difficultyLevel;
 			qteCurrentStep = 0;
 
 			SetupNextQTEStep();
@@ -175,7 +168,10 @@ public class MinigameManagerUI : MonoBehaviour
 		}
 		lastStickPos = stick;
 
-		float currentDrain = baseDrainRate + (currentTaskInfo.difficultyLevel * 30f);
+		// Combine this step's custom drain rate with its difficulty multiplier
+		MechanicConfig currentStep = currentTaskInfo.mechanicsSequence[currentSequenceIndex];
+		float currentDrain = currentStep.drainRate + (currentStep.difficultyLevel * 30f);
+
 		accumulatedRotation -= currentDrain * Time.deltaTime;
 		accumulatedRotation = Mathf.Max(0, accumulatedRotation);
 
@@ -191,10 +187,16 @@ public class MinigameManagerUI : MonoBehaviour
 		if (qteInstructionIcon != null) qteInstructionIcon.sprite = currentQTEPrompt.promptIcon;
 		safeZoneCenterAngle = Random.Range(45f, 315f);
 		safeZoneIndicator.localRotation = Quaternion.Euler(0, 0, -safeZoneCenterAngle);
-		float currentFill = Mathf.Max(0.05f, baseSafeZoneFill - (0.03f * qteCurrentStep));
+
+		MechanicConfig currentStep = currentTaskInfo.mechanicsSequence[currentSequenceIndex];
+
+		// Progressive Math: Shrink safe zone based on THIS step's custom starting size
+		float currentFill = Mathf.Max(0.05f, currentStep.safeZoneFill - (0.02f * qteCurrentStep));
 		safeZoneIndicator.GetComponent<Image>().fillAmount = currentFill;
 		safeZoneWidthAngles = currentFill * 360f;
-		currentArrowSpeed = baseArrowSpeed + (40f * qteCurrentStep);
+
+		// Progressive Math: Speed up arrow based on THIS step's custom starting speed
+		currentArrowSpeed = currentStep.arrowSpeed + (15f * qteCurrentStep);
 		currentArrowAngle = 0f;
 
 		Gamepad activePad = activePlayer != null ? activePlayer.GetComponent<PlayerInput>().GetDevice<Gamepad>() : null;
@@ -262,36 +264,25 @@ public class MinigameManagerUI : MonoBehaviour
 
 	void Update()
 	{
-		// --- DYNAMIC 3D-TO-2D UI TRACKING & SCALING ---
 		if (isPlaying && activePlayer != null && mainMinigameContainer != null)
 		{
 			if (mainCamera == null) mainCamera = Camera.main;
 
-			// 1. Calculate the 3D position directly above the player
 			Vector3 targetWorldPosition = activePlayer.transform.position + (Vector3.up * hoverHeight);
-
-			// 2. Translate that 3D space into 2D screen pixels (Z axis becomes distance!)
 			Vector3 screenPosition = mainCamera.WorldToScreenPoint(targetWorldPosition);
 
-			// 3. Prevent UI from flipping out if the player gets behind the camera
 			if (screenPosition.z > 0)
 			{
 				mainMinigameContainer.transform.position = screenPosition;
 
-				// 4. THE NEW SCALING MATH
 				if (scaleWithDistance)
 				{
-					// Divide our baseline reference distance by the actual distance to the player
 					float dynamicScale = referenceDistance / screenPosition.z;
-
-					// Clamp it so it doesn't become microscopically small or cover the entire screen
 					dynamicScale = Mathf.Clamp(dynamicScale, minScale, maxScale);
-
 					mainMinigameContainer.transform.localScale = Vector3.one * dynamicScale;
 				}
 			}
 		}
-		// ----------------------------------------------
 
 		if (!isPlaying || isEnding || isTransitioning) return;
 
@@ -322,9 +313,6 @@ public class MinigameManagerUI : MonoBehaviour
 		if (panelJoystickRotate != null) panelJoystickRotate.SetActive(false);
 		if (panelTimingQTE != null) panelTimingQTE.SetActive(false);
 
-		// THE FIX: Increased the buffer from 0.15s to 0.4s.
-		// This gives the player exactly enough time to stop spinning their joystick 
-		// so it doesn't accidentally trigger the next QTE as a failure!
 		yield return new WaitForSeconds(0.4f);
 
 		SetupCurrentMechanic();
@@ -366,23 +354,24 @@ public class MinigameManagerUI : MonoBehaviour
 		ShowFeedback("REPAIR SUCCESS!", Color.green, 1.0f);
 		currentProp.OnMinigameSuccess(currentItem);
 
-		// 3. THE FIX: Dropped from 1.0 second to 0.25 seconds.
-		// The UI will vanish almost instantly, making the gameplay feel fluid and continuous.
 		Invoke(nameof(CloseUI), 0.25f);
 	}
 
 	private void FailMinigame(string reason)
 	{
 		isEnding = true;
+
+		float penaltyAmount = currentTaskInfo != null ? currentTaskInfo.taskFailurePenalty : 5f;
+
 		ShowFeedback($"MISTAKE! {reason}", Color.red, 1.0f);
-		EventBus.OnGenericTextNotification?.Invoke(reason, "-$5 Penalty");
-		EventBus.OnGigMistakeMade?.Invoke(5f);
+
+		EventBus.OnGenericTextNotification?.Invoke(reason, $"-${penaltyAmount} Penalty");
+		EventBus.OnGigMistakeMade?.Invoke(penaltyAmount);
+
 		currentProp.OnMinigameFailed();
 
 		StartCoroutine(HapticFeedbackRoutine(0.5f, 0.8f, 0.4f));
 
-		// 4. THE FIX: Dropped from 1.5 seconds to 0.6 seconds.
-		// Failing should feel punishing, but it shouldn't lock the player out of moving for an eternity.
 		Invoke(nameof(CloseUI), 0.6f);
 	}
 

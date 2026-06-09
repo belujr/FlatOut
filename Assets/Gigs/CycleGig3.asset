@@ -21,13 +21,39 @@ MonoBehaviour:
   requiredTasks:
   - taskDescription: Add Handle
     requiredItemName: Handle
-    mechanicsSequence: 0000000001000000
-    difficultyLevel: 3
+    mechanicsSequence:
+    - mechanicType: 0
+      difficultyLevel: 2
+      arrowSpeed: 0
+      safeZoneFill: 0
+      drainRate: 190
+    - mechanicType: 1
+      difficultyLevel: 2
+      arrowSpeed: 260
+      safeZoneFill: 0.2
+      drainRate: 190
+    taskFailurePenalty: 5
   - taskDescription: Add Seat
     requiredItemName: Seat
-    mechanicsSequence: 01000000
-    difficultyLevel: 4
+    mechanicsSequence:
+    - mechanicType: 1
+      difficultyLevel: 4
+      arrowSpeed: 265
+      safeZoneFill: 0.25
+      drainRate: 0
+    taskFailurePenalty: 5
   - taskDescription: Add Tube
     requiredItemName: Tube
-    mechanicsSequence: 0100000000000000
-    difficultyLevel: 3
+    mechanicsSequence:
+    - mechanicType: 1
+      difficultyLevel: 3
+      arrowSpeed: 265
+      safeZoneFill: 0.2
+      drainRate: 0
+    - mechanicType: 0
+      difficultyLevel: 3
+      arrowSpeed: 260
+      safeZoneFill: 0.2
+      drainRate: 190
+    taskFailurePenalty: 10
+  gigRiskLevel: 0

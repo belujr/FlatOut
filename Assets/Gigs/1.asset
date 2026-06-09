@@ -22,7 +22,14 @@ MonoBehaviour:
     requiredItemName: Chain
     mechanicsSequence: 0000000001000000
     difficultyLevel: 2
+    taskFailurePenalty: 5
+    qteArrowSpeed: 250
+    qteSafeZoneFill: 0.2
   - taskDescription: Grease the cycle
     requiredItemName: Grease
     mechanicsSequence: 01000000
     difficultyLevel: 5
+    taskFailurePenalty: 5
+    qteArrowSpeed: 250
+    qteSafeZoneFill: 0.2
+  gigRiskLevel: 0
