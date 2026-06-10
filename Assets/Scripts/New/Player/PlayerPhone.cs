@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.UI; // <--- ADD THIS LINE!
+using UnityEngine.InputSystem.UI;
+
 public class PlayerPhone : MonoBehaviour
 {
 	[Header("Core References")]
@@ -12,6 +13,7 @@ public class PlayerPhone : MonoBehaviour
 	public GraphicRaycaster phoneRaycaster;
 	public App_Shopping appShopping;
 	public App_Gigs appGigs;
+	public App_Casino appCasino; // ---> NEW: Casino Reference
 
 	[Header("3D Model References")]
 	public GameObject physicalPhoneModel;
@@ -36,27 +38,26 @@ public class PlayerPhone : MonoBehaviour
 
 	[Header("Survival Settings")]
 	public float hungerDrainPerSecond = 0.5f;
-	// Change this line:
 	public bool hasPassedOutFromHunger = false;
 
 	void Awake()
 	{
-		// 1. Grab our true identity
 		PlayerController me = GetComponent<PlayerController>();
 
 		if (phoneCanvas != null)
 		{
-			// 2. Find the apps hidden inside the phone
 			App_Shopping shop = phoneCanvas.GetComponentInChildren<App_Shopping>(true);
 			App_Gigs gigs = phoneCanvas.GetComponentInChildren<App_Gigs>(true);
+			App_Casino casino = phoneCanvas.GetComponentInChildren<App_Casino>(true); // Find Casino
 			PhoneNotificationCenter notif = phoneCanvas.GetComponentInChildren<PhoneNotificationCenter>(true);
 
-			// 3. Aggressively inject the identity into them!
 			if (shop != null) shop.myPlayer = me;
 			if (gigs != null) gigs.myPlayer = me;
+			if (casino != null) casino.localPlayer = me;
 			if (notif != null) notif.myPlayer = me;
 
-			// 4. Now it is completely safe to detach the canvas!
+			if (casino != null) appCasino = casino; // Assign local reference
+
 			phoneCanvas.transform.SetParent(null);
 		}
 	}
@@ -119,10 +120,15 @@ public class PlayerPhone : MonoBehaviour
 	{
 		if (value.isPressed && isPhoneOpen)
 		{
+			// ---> THE FIX: Block 'B' from closing the phone if the QTE is active!
+			if (appCasino != null && appCasino.IsGamblingActive()) return;
+
 			if (appShopping != null && appShopping.panelShopItems.activeSelf) appShopping.CloseCategory();
 			else if (appShopping != null && appShopping.panelShopCategories.activeSelf) appShopping.CloseShoppingApp();
 			else if (appGigs != null && appGigs.panelGigDetails.activeSelf) appGigs.GoBack();
 			else if (appGigs != null && appGigs.panelGigsList.activeSelf) appGigs.CloseGigsApp();
+			// ---> THE FIX: Route the 'B' button to cleanly go back through Casino menus!
+			else if (appCasino != null && appCasino.panelCasino.activeSelf) appCasino.GoBack();
 			else ChangePhoneState(false);
 		}
 	}
@@ -134,15 +140,14 @@ public class PlayerPhone : MonoBehaviour
 		isPhoneOpen = open;
 		SetPhoneVisibility(isPhoneOpen);
 
-		// Grab THIS specific player's UI brain, not the global one!
 		MultiplayerEventSystem myEventSystem = GetComponent<MultiplayerEventSystem>();
 
 		if (isPhoneOpen)
 		{
 			if (appShopping != null) appShopping.ForceCloseToHome();
 			if (appGigs != null) appGigs.ForceCloseToHome();
+			if (appCasino != null) appCasino.ForceCloseToHome(); // Resets Casino cleanly!
 
-			// 1. Wipe memory using the Multiplayer Event System
 			if (myEventSystem != null) myEventSystem.SetSelectedGameObject(null);
 
 			bool canSelectNotification = false;
@@ -159,7 +164,6 @@ public class PlayerPhone : MonoBehaviour
 				else myEventSystem.SetSelectedGameObject(firstAppButton);
 			}
 
-			// 2. Turn OFF jumping, Turn ON UI clicking
 			if (playerInput != null)
 			{
 				playerInput.actions.FindAction("Jump")?.Disable();
@@ -168,14 +172,12 @@ public class PlayerPhone : MonoBehaviour
 		}
 		else
 		{
-			// 1. Wipe memory for THIS specific player when the phone closes!
 			if (myEventSystem != null) myEventSystem.SetSelectedGameObject(null);
 
-			// 2. Turn ON jumping, Turn OFF UI clicking!
 			if (playerInput != null)
 			{
 				playerInput.actions.FindAction("Jump")?.Enable();
-				playerInput.actions.FindAction("UI/Submit")?.Disable(); // THE GHOST KILLER
+				playerInput.actions.FindAction("UI/Submit")?.Disable();
 			}
 		}
 	}
