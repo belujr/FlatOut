@@ -2097,7 +2097,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 4294967295
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -7263,6 +7263,10 @@ PrefabInstance:
     - target: {fileID: 1094807931185237240, guid: 72963c27f4e928a44962d6f8f314eb5a, type: 3}
       propertyPath: m_Name
       value: GarbageBag (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1094807931185237240, guid: 72963c27f4e928a44962d6f8f314eb5a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4474335868412449809, guid: 72963c27f4e928a44962d6f8f314eb5a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13482,6 +13486,10 @@ PrefabInstance:
     - target: {fileID: 2992430578281549704, guid: e3b1fb8dc85915544bdd8095b31e8a43, type: 3}
       propertyPath: m_Name
       value: Grease
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992430578281549704, guid: e3b1fb8dc85915544bdd8095b31e8a43, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
