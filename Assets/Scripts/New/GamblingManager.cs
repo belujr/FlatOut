@@ -141,6 +141,7 @@ public class GamblingManager : MonoBehaviour
 	{
 		isPlaying = false;
 		float payout = currentWager * currentMultiplier;
+		EventBus.OnMoneyEarned?.Invoke(payout);
 		EventBus.OnGamblingCashOut?.Invoke(payout);
 		if (statusText != null) statusText.text = $"<color=green>CASHED OUT: ${payout}</color>";
 		Invoke(nameof(CloseUI), 1.5f);

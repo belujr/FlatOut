@@ -31,11 +31,20 @@ public class App_Casino : MonoBehaviour
 	public PlayerController localPlayer;
 	private MultiplayerEventSystem localEventSystem;
 
+	// ---> NEW: Tracks your bank account so you can't bet money you don't have!
+	private float currentKnownBalance = 0f;
+
 	private void Awake()
 	{
-		// ---> THE FIX: Guarantee we find the player so controls actually lock!
 		if (localPlayer == null) localPlayer = FindFirstObjectByType<PlayerController>();
 		localEventSystem = GetComponentInParent<MultiplayerEventSystem>();
+	}
+
+	void Start()
+	{
+		// Find the bank when the game starts (Just like your Shopping App does!)
+		SharedBankAccount bank = FindFirstObjectByType<SharedBankAccount>();
+		if (bank != null) currentKnownBalance = bank.GetCurrentBalance();
 	}
 
 	public void OpenCasinoApp()
@@ -80,14 +89,8 @@ public class App_Casino : MonoBehaviour
 
 	public void GoBack()
 	{
-		if (panelBetting != null && panelBetting.activeSelf)
-		{
-			OpenGameSelection();
-		}
-		else if (panelGameSelection != null && panelGameSelection.activeSelf)
-		{
-			ForceCloseToHome();
-		}
+		if (panelBetting != null && panelBetting.activeSelf) OpenGameSelection();
+		else if (panelGameSelection != null && panelGameSelection.activeSelf) ForceCloseToHome();
 	}
 
 	public void ForceCloseToHome()
@@ -111,6 +114,9 @@ public class App_Casino : MonoBehaviour
 		if (addButton != null) addButton.onClick.AddListener(IncreaseWager);
 		if (subtractButton != null) subtractButton.onClick.AddListener(DecreaseWager);
 		if (gambleButton != null) gambleButton.onClick.AddListener(ConfirmBet);
+
+		// ---> NEW: Listen for bank balance changes
+		EventBus.OnBalanceChanged += UpdateBankBalance;
 	}
 
 	void OnDisable()
@@ -120,7 +126,15 @@ public class App_Casino : MonoBehaviour
 		if (subtractButton != null) subtractButton.onClick.RemoveListener(DecreaseWager);
 		if (gambleButton != null) gambleButton.onClick.RemoveListener(ConfirmBet);
 
+		// ---> NEW: Clean up bank listener
+		EventBus.OnBalanceChanged -= UpdateBankBalance;
+
 		ForceCloseToHome();
+	}
+
+	private void UpdateBankBalance(float newBalance)
+	{
+		currentKnownBalance = newBalance;
 	}
 
 	private void IncreaseWager()
@@ -144,6 +158,17 @@ public class App_Casino : MonoBehaviour
 
 	private void ConfirmBet()
 	{
+		// ---> NEW: Prevent betting if you are too poor!
+		if (currentKnownBalance < currentWager)
+		{
+			if (currentWagerAmtText != null) currentWagerAmtText.text = "<color=red>BROKE!</color>";
+			Invoke(nameof(UpdateWagerDisplay), 1.5f);
+			return;
+		}
+
+		// ---> NEW: Instantly deduct the wager from the bank the second the game starts!
+		EventBus.OnMoneySpent?.Invoke(currentWager);
+
 		if (panelBetting != null) panelBetting.SetActive(false);
 		EventBus.OnStartGamblingMinigame?.Invoke(currentWager, localPlayer);
 	}
