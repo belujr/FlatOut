@@ -51,8 +51,19 @@ public static class EventBus
 
     public static System.Action<string, string> OnGenericTextNotification;
 
-    // Add this with your other Actions in EventBus.cs
-    public static Action<int, string, string> OnPersonalTextNotification;
+	// --- CASINO & GAMBLING EVENTS ---
+
+	// The Casino App calls this to start the game
+	public static System.Action<float, PlayerController> OnStartGamblingMinigame;
+
+	// Triggers when the player successfully cashes out
+	public static System.Action<float> OnGamblingCashOut;
+
+	// Triggers the brutal amputation if they fail
+	public static System.Action<PlayerController> OnLimbSevered;
+
+	// Add this with your other Actions in EventBus.cs
+	public static Action<int, string, string> OnPersonalTextNotification;
 
     // Triggered when you hit "Accept"
     public static System.Action<GigData> OnGigAccepted;

@@ -24,8 +24,8 @@ MonoBehaviour:
     mechanicsSequence:
     - mechanicType: 1
       difficultyLevel: 3
-      arrowSpeed: 255
-      safeZoneFill: 0.17
+      arrowSpeed: 280
+      safeZoneFill: 0.1
       drainRate: 0
     - mechanicType: 0
       difficultyLevel: 3
@@ -38,18 +38,18 @@ MonoBehaviour:
     mechanicsSequence:
     - mechanicType: 1
       difficultyLevel: 3
-      arrowSpeed: 270
-      safeZoneFill: 0.2
+      arrowSpeed: 290
+      safeZoneFill: 0.1
       drainRate: 0
     - mechanicType: 0
       difficultyLevel: 3
       arrowSpeed: 290
       safeZoneFill: 0.2
-      drainRate: 220
+      drainRate: 350
     - mechanicType: 1
       difficultyLevel: 3
-      arrowSpeed: 280
-      safeZoneFill: 0.1
+      arrowSpeed: 300
+      safeZoneFill: 0.15
       drainRate: 190
     taskFailurePenalty: 20
   - taskDescription: Add Seat
