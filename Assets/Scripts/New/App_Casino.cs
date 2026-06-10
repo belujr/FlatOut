@@ -21,7 +21,18 @@ public class App_Casino : MonoBehaviour
 	public float wagerStep = 100f;
 
 	private float currentWager = 400f;
-	private PlayerController localPlayer;
+
+	[Header("Player Assignment")]
+	public PlayerController localPlayer; // Changed to public so you can see/assign it in the inspector
+
+	private void Awake()
+	{
+		// Automatically find the player if one wasn't manually assigned in the Inspector
+		if (localPlayer == null)
+		{
+			localPlayer = FindObjectOfType<PlayerController>();
+		}
+	}
 
 	// ---> THIS IS THE NEW METHOD FOR YOUR BUTTON <---
 	public void OpenCasinoApp()

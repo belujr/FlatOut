@@ -38,8 +38,6 @@ public class PlayerController : MonoBehaviour
 	[HideInInspector] public SyncPhysicsObjects[] syncPhysicsObjects;
 	[HideInInspector] public bool isIncapacitated = false; // Locks manual state changes
 
-
-
 	void Awake()
 	{
 		rigidbody3D.maxAngularVelocity = 50f;
@@ -70,12 +68,22 @@ public class PlayerController : MonoBehaviour
 	{
 		EventBus.OnStartMinigame += LockControls;
 		EventBus.OnMinigameEnded += UnlockControls;
+
+		// Hook up the Casino events to handle control locking
+		EventBus.OnStartGamblingMinigame += LockControlsForGambling;
+		EventBus.OnGamblingCashOut += UnlockControlsForGamblingWin;
+		EventBus.OnLimbSevered += UnlockControlsForGamblingLoss;
 	}
 
 	void OnDisable()
 	{
 		EventBus.OnStartMinigame -= LockControls;
 		EventBus.OnMinigameEnded -= UnlockControls;
+
+		// Clean up Casino events
+		EventBus.OnStartGamblingMinigame -= LockControlsForGambling;
+		EventBus.OnGamblingCashOut -= UnlockControlsForGamblingWin;
+		EventBus.OnLimbSevered -= UnlockControlsForGamblingLoss;
 	}
 
 	// THE FIX: Check if I am the one triggering it
@@ -91,6 +99,34 @@ public class PlayerController : MonoBehaviour
 
 	// THE FIX: Check if I am the one triggering it
 	private void UnlockControls(PlayerController triggeringPlayer)
+	{
+		if (triggeringPlayer != this) return;
+
+		isPlayingMinigame = false;
+	}
+
+	// --- NEW CASINO CONTROL LOCKS ---
+	private void LockControlsForGambling(float wager, PlayerController triggeringPlayer)
+	{
+		if (triggeringPlayer != this) return;
+
+		isPlayingMinigame = true;
+		moveInput = Vector2.zero;
+		rightStickArmInput = Vector2.zero;
+		jumpTriggered = false;
+	}
+
+	private void UnlockControlsForGamblingWin(float payout)
+	{
+		// Since cashing out doesn't send a player parameter, 
+		// whoever is currently playing a minigame gets unlocked
+		if (isPlayingMinigame)
+		{
+			isPlayingMinigame = false;
+		}
+	}
+
+	private void UnlockControlsForGamblingLoss(PlayerController triggeringPlayer)
 	{
 		if (triggeringPlayer != this) return;
 
